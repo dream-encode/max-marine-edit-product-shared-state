@@ -53,17 +53,9 @@ function max_marine_edit_product_shared_state_get_plugin_setting( $key, $default
  */
 function max_marine_edit_product_shared_state_get_admin_screens_to_assets() {
 	return array(
-		'settings_page_max-marine-edit-product-shared-state-settings' => array(
+		'product' => array(
 			array(
-				'name'         => 'settings-page',
-				'localization' => array(
-					'REST_URL'    => get_rest_url( null, '' ),
-					'WP_REST_URL' => get_rest_url(),
-					'NONCES'      => array(
-						'REST' => wp_create_nonce( 'wp_rest' ),
-					),
-					'SETTINGS'    => get_option( 'max_marine_edit_product_shared_state_plugin_settings', array() ),
-				),
+				'name' => 'edit-product-page',
 			),
 		),
 	);

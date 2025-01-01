@@ -148,9 +148,8 @@ const config = {
 const admin = {
 	...config,
 	entry: {
-		'admin-settings-page': [
-			'./admin/assets/src/js/admin-settings-page.js',
-			'./admin/assets/src/scss/admin-settings-page.scss'
+		'admin-edit-product-page': [
+			'./admin/assets/src/js/admin-edit-product-page.js'
 		],
 	},
 	output: {

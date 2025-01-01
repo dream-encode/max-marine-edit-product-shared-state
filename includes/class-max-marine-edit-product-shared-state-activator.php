@@ -11,8 +11,6 @@
 
 namespace Max_Marine\Edit_Product_Shared_State\Core;
 
-use Max_Marine\Edit_Product_Shared_State\Core\Upgrade\Max_Marine_Edit_Product_Shared_State_Upgrader;
-
 /**
  * Fired during plugin activation.
  *
@@ -33,6 +31,5 @@ class Max_Marine_Edit_Product_Shared_State_Activator {
 	 * @return void
 	 */
 	public static function activate() {
-		Max_Marine_Edit_Product_Shared_State_Upgrader::install();
 	}
 }

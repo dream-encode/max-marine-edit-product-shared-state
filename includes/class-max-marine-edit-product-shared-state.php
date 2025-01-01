@@ -17,8 +17,6 @@ namespace Max_Marine\Edit_Product_Shared_State\Core;
 use Max_Marine\Edit_Product_Shared_State\Core\Max_Marine_Edit_Product_Shared_State_Loader;
 use Max_Marine\Edit_Product_Shared_State\Core\Max_Marine_Edit_Product_Shared_State_I18n;
 use Max_Marine\Edit_Product_Shared_State\Admin\Max_Marine_Edit_Product_Shared_State_Admin;
-use Max_Marine\Edit_Product_Shared_State\Frontend\Max_Marine_Edit_Product_Shared_State_Public;
-use Max_Marine\Edit_Product_Shared_State\Core\Upgrade\Max_Marine_Edit_Product_Shared_State_Upgrader;
 
 /**
  * The core plugin class.
@@ -76,12 +74,8 @@ class Max_Marine_Edit_Product_Shared_State {
 		$this->plugin_name = 'max-marine-edit-product-shared-state';
 
 		$this->load_dependencies();
-		$this->define_tables();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();
-		$this->define_global_hooks();
-		$this->define_cli_commands();
 	}
 
 	/**
@@ -102,10 +96,6 @@ class Max_Marine_Edit_Product_Shared_State {
 	 * @return void
 	 */
 	private function load_dependencies() {
-		
-		
-		
-		
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
@@ -119,22 +109,10 @@ class Max_Marine_Edit_Product_Shared_State {
 		require_once MAX_MARINE_EDIT_PRODUCT_SHARED_STATE_PLUGIN_PATH . 'includes/class-max-marine-edit-product-shared-state-i18n.php';
 
 		/**
-		 * Default filters.
-		 */
-		require_once MAX_MARINE_EDIT_PRODUCT_SHARED_STATE_PLUGIN_PATH . 'includes/max-marine-edit-product-shared-state-default-filters.php';
-
-		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once MAX_MARINE_EDIT_PRODUCT_SHARED_STATE_PLUGIN_PATH . 'admin/class-max-marine-edit-product-shared-state-admin.php';
 
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once MAX_MARINE_EDIT_PRODUCT_SHARED_STATE_PLUGIN_PATH . 'public/class-max-marine-edit-product-shared-state-public.php';
-		
-		
 		$this->loader = new Max_Marine_Edit_Product_Shared_State_Loader();
 	}
 
@@ -155,20 +133,6 @@ class Max_Marine_Edit_Product_Shared_State {
 	}
 
 	/**
-	 * Define custom databases tables.
-	 *
-	 * @since  1.0.0
-	 * @return void
-	 */
-	public function define_tables() {
-		if ( ! class_exists( 'Max_Marine_Edit_Product_Shared_State_Upgrader' ) ) {
-			return;
-		}
-
-		Max_Marine_Edit_Product_Shared_State_Upgrader::define_tables();
-	}
-
-	/**
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
@@ -179,43 +143,9 @@ class Max_Marine_Edit_Product_Shared_State {
 	private function define_admin_hooks() {
 		$plugin_admin = new Max_Marine_Edit_Product_Shared_State_Admin();
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-	}
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * @since  1.0.0
-	 * @access private
-	 * @return void
-	 */
-	private function define_public_hooks() {
-		$plugin_public = new Max_Marine_Edit_Product_Shared_State_Public();
-
-		$this->loader->add_action( 'example_function', $plugin_public, 'example_function' );
-		
-		
-	}
-
-	/**
-	 * Register all of the global hooks .
-	 *
-	 * @since  1.0.0
-	 * @access private
-	 * @return void
-	 */
-	private function define_global_hooks() {
-	}
-
-	/**
-	 * Register custom WP_Cli commands.
-	 *
-	 * @since  1.0.0
-	 * @return void
-	 */
-	private function define_cli_commands() {
-		
+		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'edit_product_page_react_root', 900 );
 	}
 
 	/**
