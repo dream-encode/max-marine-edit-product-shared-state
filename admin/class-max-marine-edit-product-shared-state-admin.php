@@ -46,15 +46,12 @@ class Max_Marine_Edit_Product_Shared_State_Admin {
 		$screens_to_assets = max_marine_edit_product_shared_state_get_admin_screens_to_assets();
 
 		foreach ( $screens_to_assets as $screen => $assets ) {
-
 			if ( $current_screen->id !== $screen ) {
 				continue;
 			}
 
 			foreach ( $assets as $asset ) {
 				$asset_base_url = MAX_MARINE_EDIT_PRODUCT_SHARED_STATE_PLUGIN_URL . 'admin/';
-
-				ray( $asset );
 
 				$asset_file = include( MAX_MARINE_EDIT_PRODUCT_SHARED_STATE_PLUGIN_PATH . "admin/assets/dist/js/admin-{$asset['name']}.min.asset.php" );
 
