@@ -66,23 +66,31 @@ const EditProduct = () => {
 
 	return (
 		<Modal
-			title={ __( 'Product Save Error!', 'max-marine-product-categories-enhancements' ) }
+			title={ __( 'Problem Saving Product', 'max-marine-product-categories-enhancements' ) }
+			className="mmepss-edit-product-error-modal"
 			onRequestClose={ closeModal }
 		>
-			<ul>
-				{ errors.map( ( error, index ) => (
-					<li key={ index }>
-						{ error.message }
-					</li>
-				) ) }
-			</ul>
+			<div className="content">
+				<p>
+					{ __( 'Please correct the following errors before saving this product:', 'max-marine-product-categories-enhancements' ) }
+				</p>
+				<ul>
+					{ errors.map( ( error, index ) => (
+						<li key={ index }>
+							{ error.message }
+						</li>
+					) ) }
+				</ul>
+			</div>
 
-			<Button
-				isPrimary
-				onClick={ closeModal }
-			>
-				{ __( 'OK', 'max-marine-product-categories-enhancements' ) }
-			</Button>
+			<div className="buttons">
+				<Button
+					isPrimary
+					onClick={ closeModal }
+				>
+					{ __( 'OK', 'max-marine-product-categories-enhancements' ) }
+				</Button>
+			</div>
 		</Modal>
 	)
 }

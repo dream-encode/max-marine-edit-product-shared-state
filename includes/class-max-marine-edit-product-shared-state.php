@@ -143,6 +143,7 @@ class Max_Marine_Edit_Product_Shared_State {
 	private function define_admin_hooks() {
 		$plugin_admin = new Max_Marine_Edit_Product_Shared_State_Admin();
 
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		$this->loader->add_action( 'edit_form_after_editor', $plugin_admin, 'edit_product_page_react_root', 900 );

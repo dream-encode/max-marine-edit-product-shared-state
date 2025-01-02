@@ -27,6 +27,49 @@ use WP_Screen;
 class Max_Marine_Edit_Product_Shared_State_Admin {
 
 	/**
+	 * Register the stylesheets for the admin area.
+	 *
+	 * @since  1.0.0
+	 * @return void
+	 */
+	public function enqueue_styles() {
+		if ( ! max_marine_edit_product_shared_state_admin_current_screen_has_enqueued_assets() ) {
+			return;
+		}
+
+		$current_screen = \get_current_screen();
+
+		if ( ! $current_screen instanceof WP_Screen ) {
+			return;
+		}
+
+		$screens_to_assets = max_marine_edit_product_shared_state_get_admin_screens_to_assets();
+
+		foreach ( $screens_to_assets as $screen => $assets ) {
+
+			if ( $current_screen->id !== $screen ) {
+				continue;
+			}
+
+			foreach ( $assets as $asset ) {
+				$asset_base_url = MAX_MARINE_EDIT_PRODUCT_SHARED_STATE_PLUGIN_URL . 'admin/';
+
+				ray( $asset );
+
+				$asset_file = include( MAX_MARINE_EDIT_PRODUCT_SHARED_STATE_PLUGIN_PATH . "admin/assets/dist/js/admin-{$asset['name']}.min.asset.php" );
+
+				wp_enqueue_style(
+					"max-marine-edit-product-shared-state-admin-{$asset['name']}",
+					$asset_base_url . "assets/dist/css/admin-{$asset['name']}.min.css",
+					max_marine_edit_product_shared_state_get_style_asset_dependencies( $asset_file['dependencies'] ),
+					$asset_file['version'],
+					'all'
+				);
+			}
+		}
+	}
+
+	/**
 	 * Register the JavaScript for the admin area.
 	 *
 	 * @since  1.0.0

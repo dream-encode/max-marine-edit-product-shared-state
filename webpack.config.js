@@ -149,7 +149,8 @@ const admin = {
 	...config,
 	entry: {
 		'admin-edit-product-page': [
-			'./admin/assets/src/js/admin-edit-product-page.js'
+			'./admin/assets/src/js/admin-edit-product-page.js',
+			'./admin/assets/src/css/admin-edit-product-page.scss',
 		],
 	},
 	output: {
