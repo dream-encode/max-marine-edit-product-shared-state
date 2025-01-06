@@ -129,7 +129,7 @@ class Max_Marine_Edit_Product_Shared_State_Admin {
 			return;
 		}
 
-		if ( 'product' !== $current_screen->id ) {
+		if ( ! in_array( $current_screen->id, array( 'product' ), true ) ) {
 			return;
 		}
 
