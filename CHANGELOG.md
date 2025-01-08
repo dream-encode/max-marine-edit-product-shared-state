@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.0.0] - 2025-01-08
+* ENH: Split Errors from Watchers.
+* ENH: Refactor Errors to be a bit more reusable and abstract.
+* ENH: Add field watchers with their own triggers and modal, but not hook them up for now.
+
 ## [1.1.2] - 2025-01-05
 * TSK: Release bump for assets build.
 
