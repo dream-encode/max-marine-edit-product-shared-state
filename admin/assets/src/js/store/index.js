@@ -8,28 +8,28 @@ import { EDIT_PRODUCT_STORE_NAME } from '../utils/constants'
 const eventEmitter = mitt()
 
 const initialState = {
-    errors: [],
-    formValid: true,
+    validationErrors: [],
+    validationFormValid: true,
 }
 
 const actions = {
-	reportError( pluginName, message ) {
+	addValidationError( pluginName, error ) {
 		return {
-			type: 'REPORT_ERROR',
+			type: 'ADD_VALIDATION_ERROR',
 			pluginName,
-			message,
+			error,
 		}
 	},
 
-	clearErrors() {
+	clearValidationErrors() {
 		return {
-			type: 'CLEAR_ERRORS',
+			type: 'CLEAR_VALIDATION_ERRORS',
 		}
 	},
 
-	setFormValid( isValid ) {
+	setValidationFormValid( isValid ) {
 		return {
-			type: 'SET_FORM_VALID',
+			type: 'SET_VALIDATION_FORM_VALID',
 			isValid,
 		}
 	},
@@ -45,30 +45,30 @@ const actions = {
 
 const reducer = ( state = initialState, action ) => {
 	switch ( action.type ) {
-		case 'REPORT_ERROR':
+		case 'ADD_VALIDATION_ERROR':
 			return {
 				...state,
-				errors: [
-					...state.errors,
+				validationErrors: [
+					...state.validationErrors,
 					{
 						pluginName: action.pluginName,
-						message: action.message,
+						error: action.error,
 					},
 				],
-				formValid: false,
+				validationFormValid: false,
 			}
 
-		case 'CLEAR_ERRORS':
+		case 'CLEAR_VALIDATION_ERRORS':
 			return {
 				...state,
-				errors: [],
-				formValid: true,
+				validationErrors: [],
+				validationFormValid: true,
 			}
 
-		case 'SET_FORM_VALID':
+		case 'SET_VALIDATION_FORM_VALID':
 			return {
 				...state,
-				formValid: action.isValid,
+				validationFormValid: action.isValid,
 			}
 
 		default:
@@ -77,16 +77,16 @@ const reducer = ( state = initialState, action ) => {
 }
 
 const selectors = {
-	getErrors( state ) {
-		return state.errors
-	},
-
-	isFormValid( state ) {
-		return state.formValid
-	},
-
 	getEventEmitter() {
 		return eventEmitter
+	},
+
+	getValidationErrors( state ) {
+		return state.validationErrors
+	},
+
+	isValidationFormValid( state ) {
+		return state.validationFormValid
 	},
 }
 
