@@ -15,7 +15,7 @@
  * Plugin Name:       Max Marine - Edit Product Shared State
  * Plugin URI:        https://example.com
  * Description:       A small, focused plugin that adds a shared wp.data store used on the edit product page of WooCommerce.
- * Version:           1.1.2
+ * Version:           2.0.0
  * Author:            David Baumwald
  * Author URI:        https://dream-encode.com
  * License:           GPL-2.0+
