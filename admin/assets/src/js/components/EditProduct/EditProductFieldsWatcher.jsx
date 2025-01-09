@@ -39,10 +39,24 @@ const EditProductFieldsWatcher = () => {
 	const [ isModalOpen, setIsModalOpen ]                         = useState( false )
 	const [ modalTitle, setModalTitle ]                           = useState( '' )
 	const [ modalContent, setModalContent ]                       = useState( '' )
+	const [ modalContentNote, setModalContentNote ]               = useState( '' )
 	const [ modalCancelActionLabel, setModalCancelActionLabel ]   = useState( '' )
 	const [ modalConfirmActionLabel, setModalConfirmActionLabel ] = useState( '' )
 	const [ modalCancelActionEvent, setModalCancelActionEvent ]   = useState( '' )
 	const [ modalConfirmActionEvent, setModalConfirmActionEvent ] = useState( '' )
+
+	const eventEmitter = select( EDIT_PRODUCT_STORE_NAME ).getEventEmitter()
+
+	useEffect( () => {
+		eventEmitter.on( 'CloseFieldsWatcherModal', closeModal )
+
+		eventEmitter.on( 'RelistingProduct', handleProductRelistingActions )
+
+		return () => {
+			eventEmitter.off( 'CloseFieldsWatcherModal', closeModal )
+			eventEmitter.off( 'RelistingProduct', handleProductRelistingActions )
+		}
+	} )
 
 	const handleFieldChange = ( fieldID, newValue, oldValue ) => {
 		switch ( fieldID ) {
@@ -73,15 +87,17 @@ const EditProductFieldsWatcher = () => {
 	const triggerRelistProductModal = () => {
 		const title         = __( 'Relisting Product', 'max-marine-product-categories-enhancements' )
 		const content       = __( 'Are you relisting this product?', 'max-marine-product-categories-enhancements' )
+		const contentNote   = __( 'The current product location will be removed, and you\'ll need to enter a new one.', 'max-marine-product-categories-enhancements' )
 		const cancelLabel   = __( 'No', 'max-marine-product-categories-enhancements' )
 		const confirmLabel  = __( 'Yes', 'max-marine-product-categories-enhancements' )
 
 		setModalTitle( title )
 		setModalContent( content )
+		setModalContentNote( contentNote )
 		setModalCancelActionLabel( cancelLabel )
 		setModalConfirmActionLabel( confirmLabel )
-		setModalCancelActionEvent( 'RelistingProduct' )
-		setModalConfirmActionEvent( '' )
+		setModalCancelActionEvent( 'CloseFieldsWatcherModal' )
+		setModalConfirmActionEvent( 'RelistingProduct' )
 
 		openModal()
 	}
@@ -102,6 +118,21 @@ const EditProductFieldsWatcher = () => {
 		eventEmitter.emit( modalConfirmActionEvent )
 	}
 
+	const handleProductRelistingActions = () => {
+		closeModal()
+
+		// const attributesLink = document.querySelector( '.attribute_options > a' )
+
+		// attributesLink.click()
+
+		const selectNoneButton = document.querySelector( 'div.pa_location .woocommerce_attribute_data .select_no_attributes' )
+
+		if ( selectNoneButton ) {
+			selectNoneButton.click()
+		}
+
+	}
+
 	if ( ! isModalOpen ) {
 		return null
 	}
@@ -116,11 +147,16 @@ const EditProductFieldsWatcher = () => {
 				<p>
 					{ modalContent }
 				</p>
+				{ modalContentNote && (
+					<p>
+						<strong>Note:</strong> { modalContentNote }
+					</p>
+				) }
 			</div>
 
 			<div className="buttons">
 				<Button
-					isPrimary
+					isSecondary
 					onClick={ handleCancelAction }
 				>
 					{ modalCancelActionLabel }

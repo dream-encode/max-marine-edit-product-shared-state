@@ -12,10 +12,15 @@
 	}
 
 	.buttons {
-		margin-top: 1.75rem;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: flex-end;
+		margin-top: 1.75rem;
+		gap: 1.0rem;
+
+		.components-button {
+			padding: 0.5rem 1.5rem;
+		}
 	}
 }

@@ -4,7 +4,6 @@ import {
 } from '@wordpress/element'
 
 const useFieldWatcher = ( fields, fieldChangeCallback ) => {
-	console.log({ fieldChangeCallback })
     const [ initialValues, setInitialValues ] = useState( {} )
 
 	useEffect( () => {
@@ -39,8 +38,6 @@ const useFieldWatcher = ( fields, fieldChangeCallback ) => {
 
 		// Set initial values
 		setInitialValues( initialValuesTemp )
-
-		console.log({ listeners })
 
 		// Cleanup listeners on unmount
 		return () => {

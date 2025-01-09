@@ -98,7 +98,7 @@ class Max_Marine_Edit_Product_Shared_State_Admin {
 				wp_register_script(
 					"max-marine-edit-product-shared-state-admin-{$asset['name']}",
 					$asset_base_url . "assets/dist/js/admin-{$asset['name']}.min.js",
-					$asset_file['dependencies'],
+					array_merge( $asset_file['dependencies'], array( 'jquery' ) ),
 					$asset_file['version'],
 					array(
 						'in_footer' => true,
