@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.1.0] - 2025-01-09
+* ENH: Relisting - Un-select product location attributes, if detected.
+* ENH: Relisting - Minor styling tweaks.
+
 ## [2.0.0] - 2025-01-08
 * ENH: Split Errors from Watchers.
 * ENH: Refactor Errors to be a bit more reusable and abstract.
